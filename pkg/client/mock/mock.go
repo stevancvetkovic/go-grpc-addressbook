@@ -1,7 +1,9 @@
 package mock
 
 import (
-	pb "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
+	"context"
+
+	api "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
 	"github.com/stevancvetkovic/go-grpc-addressbook/utils"
 	"google.golang.org/grpc"
 )
@@ -18,16 +20,16 @@ func New(bufnet *utils.Listener) *AddressbookServer {
 		Calls:  make(map[string]int),
 	}
 
-	pb.RegisterAddressbookServer(remote.srv, remote)
+	api.RegisterAddressbookServer(remote.srv, remote)
 	go remote.srv.Serve(remote.bufnet.Sock())
 	return remote
 }
 
 type AddressbookServer struct {
-	pb.UnimplementedAddressbookServer
-	bufnet *utils.Listener
-	srv    *grpc.Server
-	Calls  map[string]int
+	api.UnimplementedAddressbookServer
+	bufnet     *utils.Listener
+	srv        *grpc.Server
+	Calls      map[string]int
 }
 
 func (s *AddressbookServer) Channel() *utils.Listener {
@@ -43,4 +45,11 @@ func (s *AddressbookServer) Reset() {
 	for key := range s.Calls {
 		s.Calls[key] = 0
 	}
+}
+
+func (s *AddressbookServer) GetAddress(ctx context.Context, in *api.AddressRequest) (out *api.AddressResponse, err error) {
+	return &api.AddressResponse{
+		Street: "street",
+		City: "city",
+	}, nil
 }

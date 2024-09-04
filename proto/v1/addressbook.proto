@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package proto;
+package addressbook.v1;
 
-option go_package = "./;proto";
+option go_package = "github.com/stevancvetkovic/go-grpc-addressbook/pkg/api/v1;api";
 
 service Addressbook {
   rpc GetAddress (AddressRequest) returns (AddressResponse) {}
