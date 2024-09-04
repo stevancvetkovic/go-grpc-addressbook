@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;proto";
+
+service GrpcService {
+  rpc GetAddress (AddressRequest) returns (AddressResponse) {}
+}
+
+message AddressRequest {
+  string FirstName = 1;
+  string LastName = 2;
+}
+
+
+message AddressResponse {
+  string Street = 1;
+  string City = 2;
+}
