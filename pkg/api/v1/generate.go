@@ -1,3 +1,3 @@
 package api
 
-//go:generate protoc -I=$GOPATH/src/github.com/stevancvetkovic/go-grpc-addressbook/proto --go_out=. --go_opt=module=github.com/stevancvetkovic/go-grpc-addressbook/api/v1 --go-grpc_out=. --go-grpc_opt=module=github.com/stevancvetkovic/go-grpc-addressbook/api/v1 v1/addressbook.proto
+//go:generate protoc -I=../../../proto/v1 addressbook.proto --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative

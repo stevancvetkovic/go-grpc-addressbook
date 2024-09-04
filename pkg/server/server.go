@@ -8,7 +8,7 @@ import (
 	"os/signal"
 
 	"github.com/rs/zerolog/log"
-	api "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
+	api "github.com/stevancvetkovic/go-grpc-addressbook/pkg/api/v1"
 	"google.golang.org/grpc"
 )
 

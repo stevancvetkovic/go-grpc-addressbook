@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/stevancvetkovic/go-grpc-addressbook/server"
+	"github.com/stevancvetkovic/go-grpc-addressbook/pkg/server"
 	"github.com/urfave/cli/v2"
 )
 
