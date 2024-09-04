@@ -5,7 +5,7 @@ import (
 	"log"
 	"testing"
 
-	pb "github.com/stevancvetkovic/go-grpc-addressbook/addressbook"
+	pb "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

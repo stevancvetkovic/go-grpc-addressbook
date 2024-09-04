@@ -1,7 +1,7 @@
 package mock
 
 import (
-	pb "github.com/stevancvetkovic/go-grpc-addressbook/addressbook"
+	pb "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
 	"github.com/stevancvetkovic/go-grpc-addressbook/utils"
 	"google.golang.org/grpc"
 )

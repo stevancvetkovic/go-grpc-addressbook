@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/stevancvetkovic/go-grpc-addressbook/addressbook"
+	pb "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
 	"google.golang.org/grpc"
 )
 
