@@ -1,4 +1,4 @@
-module example.com/grpc
+module github.com/stevancvetkovic/go-grpc-addressbook
 
 go 1.22.1
 
