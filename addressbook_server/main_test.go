@@ -31,7 +31,7 @@ func bufDialer(context.Context, string) (net.Conn, error) {
 	return lis.Dial()
 }
 
-func TestSayHello(t *testing.T) {
+func TestGetAddress(t *testing.T) {
 	ctx := context.Background()
 	conn, err := grpc.NewClient("passthrough://bufnet", grpc.WithContextDialer(bufDialer), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
