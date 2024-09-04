@@ -3,33 +3,12 @@ package main
 import (
 	"context"
 	"log"
-	"net"
 	"testing"
 
 	pb "github.com/stevancvetkovic/go-grpc-addressbook/addressbook"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"google.golang.org/grpc/test/bufconn"
 )
-
-const bufSize = 1024 * 1024
-
-var lis *bufconn.Listener
-
-func init() {
-	lis = bufconn.Listen(bufSize)
-	s := grpc.NewServer()
-	pb.RegisterAddressbookServer(s, &server{})
-	go func() {
-		if err := s.Serve(lis); err != nil {
-			log.Fatalf("Server exited with error: %v", err)
-		}
-	}()
-}
-
-func bufDialer(context.Context, string) (net.Conn, error) {
-	return lis.Dial()
-}
 
 func TestGetAddress(t *testing.T) {
 	ctx := context.Background()
