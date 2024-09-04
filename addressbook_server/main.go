@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/stevancvetkovic/go-grpc-addressbook"
+	pb "github.com/stevancvetkovic/go-grpc-addressbook/addressbook"
 	"google.golang.org/grpc"
 )
 
@@ -16,11 +16,11 @@ var (
 )
 
 type server struct {
-	pb.UnimplementedAddressBookServer
+	pb.UnimplementedGrpcServiceServer
 }
 
 func (s *server) GetAddress(_ context.Context, in *pb.AddressRequest) (*pb.AddressResponse, error) {
-	log.Printf("Received: %v", in.GetName())
+	log.Printf("Received: %s %s", in.GetFirstName(), in.GetLastName())
 	return &pb.AddressResponse{
 		Street: "Beogradska",
 		City:   "Belgrade",
@@ -34,7 +34,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterAddressbookServer(s, &server{})
+	pb.RegisterGrpcServiceServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

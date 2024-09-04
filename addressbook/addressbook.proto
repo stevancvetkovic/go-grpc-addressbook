@@ -13,7 +13,6 @@ message AddressRequest {
   string LastName = 2;
 }
 
-
 message AddressResponse {
   string Street = 1;
   string City = 2;
