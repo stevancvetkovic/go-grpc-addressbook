@@ -19,7 +19,7 @@ var lis *bufconn.Listener
 func init() {
 	lis = bufconn.Listen(bufSize)
 	s := grpc.NewServer()
-	pb.RegisterGrpcServiceServer(s, &server{})
+	pb.RegisterAddressbookServer(s, &server{})
 	go func() {
 		if err := s.Serve(lis); err != nil {
 			log.Fatalf("Server exited with error: %v", err)
@@ -39,7 +39,7 @@ func TestGetAddress(t *testing.T) {
 	}
 	defer conn.Close()
 
-	client := pb.NewGrpcServiceClient(conn)
+	client := pb.NewAddressbookClient(conn)
 	resp, err := client.GetAddress(ctx, &pb.AddressRequest{
 		FirstName: "Peter",
 		LastName:  "Pan",

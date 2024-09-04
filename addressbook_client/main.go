@@ -30,7 +30,7 @@ func main() {
 		log.Fatalf("failed to connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewGrpcServiceClient(conn)
+	c := pb.NewAddressbookClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()

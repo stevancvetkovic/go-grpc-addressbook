@@ -4,7 +4,7 @@ package proto;
 
 option go_package = "./;proto";
 
-service GrpcService {
+service Addressbook {
   rpc GetAddress (AddressRequest) returns (AddressResponse) {}
 }
 

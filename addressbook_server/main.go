@@ -16,7 +16,7 @@ var (
 )
 
 type server struct {
-	pb.UnimplementedGrpcServiceServer
+	pb.UnimplementedAddressbookServer
 }
 
 func (s *server) GetAddress(_ context.Context, in *pb.AddressRequest) (*pb.AddressResponse, error) {
@@ -34,7 +34,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGrpcServiceServer(s, &server{})
+	pb.RegisterAddressbookServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

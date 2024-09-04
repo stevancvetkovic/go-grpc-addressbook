@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// GrpcServiceClient is the client API for GrpcService service.
+// AddressbookClient is the client API for Addressbook service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type GrpcServiceClient interface {
+type AddressbookClient interface {
 	GetAddress(ctx context.Context, in *AddressRequest, opts ...grpc.CallOption) (*AddressResponse, error)
 }
 
-type grpcServiceClient struct {
+type addressbookClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewGrpcServiceClient(cc grpc.ClientConnInterface) GrpcServiceClient {
-	return &grpcServiceClient{cc}
+func NewAddressbookClient(cc grpc.ClientConnInterface) AddressbookClient {
+	return &addressbookClient{cc}
 }
 
-func (c *grpcServiceClient) GetAddress(ctx context.Context, in *AddressRequest, opts ...grpc.CallOption) (*AddressResponse, error) {
+func (c *addressbookClient) GetAddress(ctx context.Context, in *AddressRequest, opts ...grpc.CallOption) (*AddressResponse, error) {
 	out := new(AddressResponse)
-	err := c.cc.Invoke(ctx, "/proto.GrpcService/GetAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.Addressbook/GetAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// GrpcServiceServer is the server API for GrpcService service.
-// All implementations must embed UnimplementedGrpcServiceServer
+// AddressbookServer is the server API for Addressbook service.
+// All implementations must embed UnimplementedAddressbookServer
 // for forward compatibility
-type GrpcServiceServer interface {
+type AddressbookServer interface {
 	GetAddress(context.Context, *AddressRequest) (*AddressResponse, error)
-	mustEmbedUnimplementedGrpcServiceServer()
+	mustEmbedUnimplementedAddressbookServer()
 }
 
-// UnimplementedGrpcServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedGrpcServiceServer struct {
+// UnimplementedAddressbookServer must be embedded to have forward compatible implementations.
+type UnimplementedAddressbookServer struct {
 }
 
-func (UnimplementedGrpcServiceServer) GetAddress(context.Context, *AddressRequest) (*AddressResponse, error) {
+func (UnimplementedAddressbookServer) GetAddress(context.Context, *AddressRequest) (*AddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAddress not implemented")
 }
-func (UnimplementedGrpcServiceServer) mustEmbedUnimplementedGrpcServiceServer() {}
+func (UnimplementedAddressbookServer) mustEmbedUnimplementedAddressbookServer() {}
 
-// UnsafeGrpcServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to GrpcServiceServer will
+// UnsafeAddressbookServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AddressbookServer will
 // result in compilation errors.
-type UnsafeGrpcServiceServer interface {
-	mustEmbedUnimplementedGrpcServiceServer()
+type UnsafeAddressbookServer interface {
+	mustEmbedUnimplementedAddressbookServer()
 }
 
-func RegisterGrpcServiceServer(s grpc.ServiceRegistrar, srv GrpcServiceServer) {
-	s.RegisterService(&GrpcService_ServiceDesc, srv)
+func RegisterAddressbookServer(s grpc.ServiceRegistrar, srv AddressbookServer) {
+	s.RegisterService(&Addressbook_ServiceDesc, srv)
 }
 
-func _GrpcService_GetAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Addressbook_GetAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GrpcServiceServer).GetAddress(ctx, in)
+		return srv.(AddressbookServer).GetAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.GrpcService/GetAddress",
+		FullMethod: "/proto.Addressbook/GetAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GrpcServiceServer).GetAddress(ctx, req.(*AddressRequest))
+		return srv.(AddressbookServer).GetAddress(ctx, req.(*AddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// GrpcService_ServiceDesc is the grpc.ServiceDesc for GrpcService service.
+// Addressbook_ServiceDesc is the grpc.ServiceDesc for Addressbook service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var GrpcService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.GrpcService",
-	HandlerType: (*GrpcServiceServer)(nil),
+var Addressbook_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.Addressbook",
+	HandlerType: (*AddressbookServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetAddress",
-			Handler:    _GrpcService_GetAddress_Handler,
+			Handler:    _Addressbook_GetAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
