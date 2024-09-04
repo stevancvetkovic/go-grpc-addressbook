@@ -2,10 +2,17 @@ package mock
 
 import (
 	"context"
+	"os"
+	"fmt"
+	"encoding/json"
 
-	api "github.com/stevancvetkovic/go-grpc-addressbook/api/v1"
-	"github.com/stevancvetkovic/go-grpc-addressbook/utils"
+	api "github.com/stevancvetkovic/go-grpc-addressbook/pkg/api/v1"
+	"github.com/stevancvetkovic/go-grpc-addressbook/pkg/utils"
 	"google.golang.org/grpc"
+)
+
+const (
+	GetAddressRPC = "addressbook.v1.Addressbook/GetAddress"
 )
 
 // New creates a new mock RemotePeer. If bufnet is nil, one is created for the user.
@@ -30,6 +37,7 @@ type AddressbookServer struct {
 	bufnet     *utils.Listener
 	srv        *grpc.Server
 	Calls      map[string]int
+	OnGetAddress func(context.Context, *api.AddressRequest) (*api.AddressResponse, error)
 }
 
 func (s *AddressbookServer) Channel() *utils.Listener {
@@ -45,11 +53,35 @@ func (s *AddressbookServer) Reset() {
 	for key := range s.Calls {
 		s.Calls[key] = 0
 	}
+
+	s.OnGetAddress = nil
+}
+
+// UseFixture loadsa a JSON fixture from disk (usually in a testdata folder) to use as
+// the protocol buffer response to the specified RPC, simplifying handler mocking.
+func (s *AddressbookServer) UseFixture(rpc, path string) (err error) {
+	var data []byte
+	if data, err = os.ReadFile(path); err != nil {
+		return fmt.Errorf("could not read fixture: %v", err)
+	}
+
+	switch rpc {
+	case GetAddressRPC:
+		out := &api.AddressResponse{}
+		if err = json.Unmarshal(data, out); err != nil {
+			return fmt.Errorf("could not unmarshal json into %T: %v", out, err)
+		}
+		s.OnGetAddress = func(context.Context, *api.AddressRequest) (*api.AddressResponse, error) {
+			return out, nil
+		}
+	default:
+		return fmt.Errorf("unknown RPC %q", rpc)
+	}
+
+	return nil
 }
 
 func (s *AddressbookServer) GetAddress(ctx context.Context, in *api.AddressRequest) (out *api.AddressResponse, err error) {
-	return &api.AddressResponse{
-		Street: "street",
-		City: "city",
-	}, nil
+	s.Calls[GetAddressRPC]++
+	return s.OnGetAddress(ctx, in)
 }

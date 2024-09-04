@@ -1,4 +1,4 @@
-package main
+package client
 
 import (
 	"context"
@@ -62,19 +62,19 @@ func (c *Client) GetAddress(firstname, lastname string) (*api.AddressResponse, e
 	return r, nil
 }
 
-func main() {
-	flag.Parse()
+// func main() {
+// 	flag.Parse()
 
-	client, err := New("127.0.0.1:50051")
-	if err != nil {
-		panic(err)
-	}
+// 	client, err := New("127.0.0.1:50051")
+// 	if err != nil {
+// 		panic(err)
+// 	}
 
-	r, err := client.GetAddress(*firstname, *lastname)
-	if err != nil {
-		panic(err)
-	}
+// 	r, err := client.GetAddress(*firstname, *lastname)
+// 	if err != nil {
+// 		panic(err)
+// 	}
 
-	log.Printf("Street: %s", r.GetStreet())
-	log.Printf("City: %s", r.GetCity())
-}
+// 	log.Printf("Street: %s", r.GetStreet())
+// 	log.Printf("City: %s", r.GetCity())
+// }
