@@ -13,7 +13,7 @@ func main() {
 		Commands: []*cli.Command{
 			{
 				Name:   "serve",
-				Usage:  "serve the agenda server on port 50051",
+				Usage:  "serve the addressbook server on port 50051",
 				Action: serve,
 				Flags:  []cli.Flag{},
 			},

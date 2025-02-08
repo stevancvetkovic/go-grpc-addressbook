@@ -11,17 +11,6 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-const (
-	defaultFirstName = "Peter"
-	defaultLastName  = "Pan"
-)
-
-var (
-	addr      = flag.String("addr", "127.0.0.1:50051", "the address to connect to")
-	firstname = flag.String("firstname", defaultFirstName, "Firstname")
-	lastname  = flag.String("lastname", defaultLastName, "Lastname")
-)
-
 type Client struct {
 	cc  *grpc.ClientConn
 	rpc api.AddressbookClient
@@ -32,7 +21,7 @@ func New(endpoint string, opts ...grpc.DialOption) (c *Client, err error) {
 
 	flag.Parse()
 
-	conn, err := grpc.NewClient(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("127.0.0.1:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("failed to connect: %v", err)
 	}

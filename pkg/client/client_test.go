@@ -11,7 +11,7 @@ import (
 )
 
 func TestGetAddress(t *testing.T) {
-	// Setup RemoteAgenda mock server
+	// Setup addressbook mock server
 	srv := mock.New(nil)
 	defer srv.Shutdown()
 
@@ -22,9 +22,9 @@ func TestGetAddress(t *testing.T) {
 	addressbook, err := client.New("bufconn", dialer, creds)
 	require.NoError(t, err, "could not connect to remote addressbook via bufconn")
 
-	// _, err = addressbook.GetAddress("hello", "world")
-	// require.Error(t, err, "expected an error returned from the server")
-	// require.Equal(t, 1, srv.Calls[mock.GetAddressRPC])
+	_, err = addressbook.GetAddress("hello", "world")
+	require.Error(t, err, "expected an error returned from the server")
+	require.Equal(t, 1, srv.Calls[mock.GetAddressRPC])
 
 	// Test the case where server returns a response
 	srv.UseFixture(mock.GetAddressRPC, "testdata/addressresponse.json")
