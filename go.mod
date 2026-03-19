@@ -1,14 +1,12 @@
 module github.com/stevancvetkovic/go-grpc-addressbook
 
-go 1.22.5
-
-toolchain go1.22.6
+go 1.24.0
 
 require (
 	github.com/golang/protobuf v1.5.4
 	github.com/rs/zerolog v1.33.0
 	github.com/urfave/cli/v2 v2.27.4
-	google.golang.org/grpc v1.66.0
+	google.golang.org/grpc v1.79.3
 )
 
 require (
@@ -24,9 +22,9 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/stretchr/testify v1.9.0
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
-	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240604185151-ef581f913117 // indirect
-	google.golang.org/protobuf v1.34.2 // indirect
+	golang.org/x/net v0.48.0 // indirect
+	golang.org/x/sys v0.39.0 // indirect
+	golang.org/x/text v0.32.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251202230838-ff82c1b0f217 // indirect
+	google.golang.org/protobuf v1.36.10 // indirect
 )
